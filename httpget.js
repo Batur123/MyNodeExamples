@@ -40,7 +40,7 @@
 
             if(typeof error.code === "undefined")
             {
-                return ErrorHandling.Handle(#"RV2Y006U","Und");
+                return ErrorHandling.Handle("#RV2Y006U","Und");
             }
 
             ErrorHandling.Handle("RV2G007",error);
