@@ -28,17 +28,17 @@
                 
             if(error.code === "ERR_SOCKET_BAD_PORT")
             {
-                return ErrorHandling.Handle("RV2Y004",error.code);
+                return ErrorHandling.Handle("#RV2Y004",error.code);
             }
             
             if(error.code === "ENOTFOUND")
             {         
-                return ErrorHandling.Handle("RV2Y005",error.code);
+                return ErrorHandling.Handle("#RV2Y005",error.code);
             }
 
             if(typeof error.code === "undefined")
             {
-                return ErrorHandling.Handle("RV2Y006U","Und");
+                return ErrorHandling.Handle(#"RV2Y006U","Und");
             }
 
             ErrorHandling.Handle("RV2G007",error);
