@@ -7,14 +7,17 @@ function _StartCount()
 
 function _StopAndSave(_Param1,_Param2,_Param3,_Param4)
 {
+    const Status;
+    
     if(Boolean(_Param4))
     {
-        const Status = SQLOperations.Insert(_Param1,_Param2,_Param3);
+        Status = SQLOperations.Insert(_Param1,_Param2,_Param3);
         clearInterval(IntervalID1172);
        _CountingVar = 0;
     }
     else
     {
+        Status = false;
         clearInterval(IntervalID1172);
         _CountingVar = 0;
     }
