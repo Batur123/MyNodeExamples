@@ -22,8 +22,7 @@
             }
             
             if(error.code === "ERR_UNESCAPED_CHARACTERS")
-            {
-                
+            {  
                 return ErrorHandling.Handle("#RV2Y003",error.code);
             }
             if(error.code === "ERR_SOCKET_BAD_PORT")
