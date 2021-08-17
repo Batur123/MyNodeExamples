@@ -9,6 +9,8 @@
         Promise.all([PromiseBasedAxiosURL1,PromiseBasedAxiosURL2])
         .then(function(response)
         {
+            if(response[0].status !== 200) return ErrorHandling.Handle("#RV0Y002",'[0]!200');
+            if(response[1].status !== 200) return ErrorHandling.Handle("#RV0Y003",'[1]!200');       
             const ResponseOne = response[0];
             const ResponseTwo = response[1];
             
