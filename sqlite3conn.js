@@ -81,5 +81,21 @@ if(Select2.includes("somecolumn"))
             "COMMIT;\n" +
             "PRAGMA foreign_keys=on;");     
 }
- 
+
+//Backup
+cron.schedule('0 0 * * *', () =>
+{
+  
+  db.backup(`backup-${Date.now()}.db`).then(() => 
+  {
+    console.log('backup complete!');
+  })
+  .catch((err) => 
+  {
+    console.log('backup failed:', err);
+  });
+   
+});
+
+
 db.exec("VACUUM;");
