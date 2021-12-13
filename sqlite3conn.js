@@ -58,7 +58,7 @@ const Result3 = db.prepare("UPDATE Users SET somecolumn = ? WHERE username = ?")
 
 const Result4 = db.prepare("SELECT rowid,* FROM Users WHERE username = ?").get(username);
 
-if(typeof != 'undefined')
+if(typeof Result4 != 'undefined')
 {
    console.log(Result4.rowid);
    console.log(Result4.password);
