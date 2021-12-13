@@ -49,8 +49,37 @@ function InsertUser(username,password,ipaddress)
    return false;
 }
 
-//Delete
-const Result = db.prepare("DELETE FROM Users WHERE username = ? COLLATE NOCASE").run(username);
+
+const Result1 = db.prepare("DELETE FROM Users WHERE username = ? COLLATE NOCASE").run(username);
+
 const Result2 = db.prepare("DELETE FROM Users WHERE username = ?").run(username);
+
 const Result3 = db.prepare("UPDATE Users SET somecolumn = ? WHERE username = ?").run(123,username);
+
+const Result4 = db.prepare("SELECT rowid,* FROM Users WHERE username = ?").get(username);
+
+if(typeof != 'undefined')
+{
+   console.log(Result4.rowid);
+   console.log(Result4.password);
+   console.log(Result4.ipaddress);
+   console.log(Result4.somecolumn);
+}
+
+const Select2 = db.prepare("pragma table_info('Users');").all();
+
+if(Select2.includes("somecolumn"))
+{
+   db.exec("PRAGMA foreign_keys=off;\n" +
+            "BEGIN TRANSACTION;\n" +
+            "ALTER TABLE SomeTable1 RENAME TO SomeTable1_Backup;\n" +
+            "CREATE TABLE SomeTable1 (username TEXT,password TEXT);\n" +
+            "INSERT INTO SomeTable1 (username,password)\n" +
+            "SELECT username,password\n" +
+            "FROM SomeTable1_Backup;\n" +
+            "DROP TABLE SomeTable1_Backup;\n" +
+            "COMMIT;\n" +
+            "PRAGMA foreign_keys=on;");     
+}
+ 
 db.exec("VACUUM;");
