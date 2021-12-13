@@ -1,1 +1,1 @@
-Some of functions i found on the internet for some solutions.
+some node functions i wrote or found on the internet.
