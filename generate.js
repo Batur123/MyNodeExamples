@@ -39,3 +39,6 @@ function generate(max, thecount)
 
     return r;
 }
+
+let arr = generate(100,4)
+console.log(arr);
