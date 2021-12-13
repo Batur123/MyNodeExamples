@@ -1,1 +1,1 @@
-Some of functions i found on on the internet for some solutions.
+Some of functions i found on the internet for some solutions.
