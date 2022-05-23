@@ -5,12 +5,12 @@ const TIME =0
 
 const floodProtection = (username,message,channelName) => {
 {
-    let Tarih = new Date();
+    let newDate = new Date();
     if(usersMap.has(username))
     {
         const userData = usersMap.get(username);
         const { lastMessage, timer } = userData;
-        const difference = Tarih.getTime() - lastMessage;
+        const difference = newDate.getTime() - lastMessage;
         let msgCount = userData.msgCount;
 
         if(difference > DIFF)
@@ -48,7 +48,7 @@ const floodProtection = (username,message,channelName) => {
         usersMap.set(username,
         {
             msgCount: 1,
-            lastMessage : Tarih.getTime(),
+            lastMessage : newDate.getTime(),
             timer : fn,
         });
     }
