@@ -1,48 +1,39 @@
 const db = require('better-sqlite3')('./database/Current.db');
 exports.conn = db;
 
-function CreateUsersTable()
-{
+function createUsersTable(){
    const SelectRes = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?").get("Users");
-    if(typeof SelectRes == 'undefined')
-    {
+    if(typeof SelectRes == 'undefined'){
         db.exec("CREATE TABLE IF NOT EXISTS Users (username TEXT, password TEXT, ipaddress TEXT, somecolumn INTEGER)");  
     }
 }
 
-CreateUsersTable();
+createUsersTable();
 
-function CheckIpAddress(ipaddress)
-{
+function isIPV4(ipaddress){
     return /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress);
 }
 
-function InsertUser(username,password,ipaddress)
-{
-   if(typeof username == 'undefined' || !Boolean(username))
-   {
+function insertUser(username,password,ipaddress){
+   if(typeof username == 'undefined' || !Boolean(username)){
       throw new Error('Enter the username');
    }
   
-   if(typeof password == 'undefined' || !Boolean(password))
-   {
+   if(typeof password == 'undefined' || !Boolean(password)){
       throw new Error('Enter the password');
    }
   
-   if(typeof ipaddress == 'undefined' || !Boolean(ipaddress))
-   {
+   if(typeof ipaddress == 'undefined' || !Boolean(ipaddress)){
       throw new Error('Enter the ipaddress');
    }
   
-   if(!CheckIpAddress(ipaddress)
-   {
+   if(!isIPV4(ipaddress){
       throw new Error('IP Adress is not valid IPV4');
    }
 
-   const Result = db.prepare("INSERT INTO Users (username,password,ipaddress,somecolumn) VALUES (?,?,?,?)").run(username,password,ipaddress,0);
+   const result = db.prepare("INSERT INTO Users (username,password,ipaddress,somecolumn) VALUES (?,?,?,?)").run(username,password,ipaddress,0);
 
-   if(Result.changes === 1)
-   {
+   if(result.changes === 1){
       return true;
    }
 
@@ -50,26 +41,24 @@ function InsertUser(username,password,ipaddress)
 }
 
 
-const Result1 = db.prepare("DELETE FROM Users WHERE username = ? COLLATE NOCASE").run(username);
+const result1 = db.prepare("DELETE FROM Users WHERE username = ? COLLATE NOCASE").run(username);
 
-const Result2 = db.prepare("DELETE FROM Users WHERE username = ?").run(username);
+const result2 = db.prepare("DELETE FROM Users WHERE username = ?").run(username);
 
-const Result3 = db.prepare("UPDATE Users SET somecolumn = ? WHERE username = ?").run(123,username);
+const result3 = db.prepare("UPDATE Users SET somecolumn = ? WHERE username = ?").run(123,username);
 
-const Result4 = db.prepare("SELECT rowid,* FROM Users WHERE username = ?").get(username);
+const result4 = db.prepare("SELECT rowid,* FROM Users WHERE username = ?").get(username);
 
-if(typeof Result4 != 'undefined')
-{
-   console.log(Result4.rowid);
-   console.log(Result4.password);
-   console.log(Result4.ipaddress);
-   console.log(Result4.somecolumn);
+if(typeof result4 != 'undefined'){
+   console.log(result4.rowid);
+   console.log(result4.password);
+   console.log(result4.ipaddress);
+   console.log(result4.somecolumn);
 }
 
-const Select2 = db.prepare("pragma table_info('Users');").all();
+const select2 = db.prepare("pragma table_info('Users');").all();
 
-if(Select2.includes("somecolumn"))
-{
+if(select2.includes("somecolumn")){
    db.exec("PRAGMA foreign_keys=off;\n" +
             "BEGIN TRANSACTION;\n" +
             "ALTER TABLE SomeTable1 RENAME TO SomeTable1_Backup;\n" +
@@ -83,8 +72,7 @@ if(Select2.includes("somecolumn"))
 }
 
 //Backup
-cron.schedule('0 0 * * *', () =>
-{
+cron.schedule('0 0 * * *', () =>{
   
   db.backup(`backup-${Date.now()}.db`).then(() => 
   {
