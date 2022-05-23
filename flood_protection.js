@@ -1,14 +1,14 @@
 
-const LIMIT = parseInt(FloodBilgileri._Limit);
-const DIFF = parseInt(FloodBilgileri._Diff);
-const TIME = parseInt(FloodBilgileri._Sure);
+const LIMIT = 0
+const DIFF = 0
+const TIME =0
 
-function SpamKorumasi(nick,mesaj,KanalAdi)
+function SpamKorumasi(username,message,channelName)
 {
     let Tarih = new Date();
-    if(usersMap.has(nick))
+    if(usersMap.has(username))
     {
-        const userData = usersMap.get(nick);
+        const userData = usersMap.get(username);
         const { lastMessage, timer } = userData;
         const difference = Tarih.getTime() - lastMessage;
         let msgCount = userData.msgCount;
@@ -17,12 +17,12 @@ function SpamKorumasi(nick,mesaj,KanalAdi)
         {
             clearTimeout(timer);
             userData.msgCount = 1;
-            userData.lastMessage = mesaj;
+            userData.lastMessage = message;
             userData.timer = setTimeout(() =>
             {
                 usersMap.delete(nick);
             }, TIME);
-            usersMap.set(nick, userData)
+            usersMap.set(username, userData)
         }
         else
         {
@@ -34,7 +34,7 @@ function SpamKorumasi(nick,mesaj,KanalAdi)
             else
             {
                 userData.msgCount = msgCount;
-                usersMap.set(nick, userData);
+                usersMap.set(username, userData);
             }
         }
     }
@@ -42,10 +42,10 @@ function SpamKorumasi(nick,mesaj,KanalAdi)
     {
         let fn = setTimeout(() =>
         {
-            usersMap.delete(nick);
+            usersMap.delete(username);
         }, TIME);
 
-        usersMap.set(nick,
+        usersMap.set(username,
         {
             msgCount: 1,
             lastMessage : Tarih.getTime(),
