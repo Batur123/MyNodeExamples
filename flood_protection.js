@@ -3,7 +3,7 @@ const LIMIT = 0
 const DIFF = 0
 const TIME =0
 
-function SpamKorumasi(username,message,channelName)
+const floodProtection = (username,message,channelName) => {
 {
     let Tarih = new Date();
     if(usersMap.has(username))
@@ -52,4 +52,4 @@ function SpamKorumasi(username,message,channelName)
             timer : fn,
         });
     }
-}
+});
