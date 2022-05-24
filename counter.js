@@ -1,23 +1,21 @@
-var _CountingVar;
+let count;
 
-function _StartCount()
+function startCount()
 {
-    IntervalID1172 = setInterval(_CountImmediate.bind(null,1),1000);
+    intervalId1172 = setInterval(countImmediate.bind(null,1),1000);
 }
 
-function _StopAndSave(_Param1,_Param2,_Param3,_Param4)
+function stopAndSaveCount(param1,param2,param3,param3)
 {
-    const Status;
-    
-    Status = Boolean(_Param4) ? SQLOperations.Insert(_Param1,_Param2,_Param3) : false;
-    clearInterval(IntervalID1172);
-    _CountingVar = 0;
+    const status = Boolean(param3) ? sqlOp.insertIntoTable(param1,param2,param3) : false;
+    clearInterval(intervalId1172);
+    count = 0;
   
-    return Status ? true : false;
+    return status ? true : false;
 }
 
-function _CountImmediate(Check)
+function countImmediate(check)
 {
-    if (!Boolean(Check)) return;
-    _CountingVar++;
+    if (!Boolean(check)) return;
+    count++;
 }
